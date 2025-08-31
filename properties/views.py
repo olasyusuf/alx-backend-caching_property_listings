@@ -4,8 +4,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.cache import cache_page
 
-from .models import Property
-from properties.serializers import PropertySerializer
+from .serializers import PropertySerializer
 from .utils import get_all_properties
 
 @cache_page(60 * 15)  # Cache the page for 15 minutes
