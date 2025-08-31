@@ -1,6 +1,9 @@
+import logging
 from django.core.cache import cache
 from django_redis import get_redis_connection
 from .models import Property
+
+logger = logging.getLogger(__name__)
 
 def get_all_properties():
     """
@@ -48,6 +51,12 @@ def get_redis_cache_metrics():
         print(f"Hit Ratio: {hit_ratio:.2f}%")
         print("---------------------------")
         
+        # Log metrics
+        logger.info(
+            f"Cache metrics - keyspace_hits: {keyspace_hits}, keyspace_misses: {keyspace_misses}, "
+            f"hit_ratio: {hit_ratio:.2%}"
+        )
+        
         # Return the metrics as a dictionary
         return {
             'keyspace_hits': keyspace_hits,
@@ -58,6 +67,7 @@ def get_redis_cache_metrics():
         
     except Exception as e:
         print(f"Error retrieving Redis metrics: {e}")
+        logger.error(f"Error retrieving Redis cache metrics: {str(e)}")
         return {
             'error': str(e)
         }
