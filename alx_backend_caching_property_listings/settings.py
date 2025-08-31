@@ -145,6 +145,13 @@ CACHES = {
         "LOCATION": "redis://redis:6379/1" if IS_DOCKER else "redis://localhost:6379/1",  # Use the Redis service name from docker-compose.yml
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "SOCKET_CONNECT_TIMEOUT": 5,  # seconds
+            "SOCKET_TIMEOUT": 5,  # seconds
         }
     }
 }
+
+
+# Use Redis for session storage
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
