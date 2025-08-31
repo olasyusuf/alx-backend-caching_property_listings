@@ -1,5 +1,5 @@
 # Environments
-.venv
+_prop_app.env
 
 # Django:
 db.sqlite3
